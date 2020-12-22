@@ -12,8 +12,8 @@ import {GeoJsonObject} from "geojson";
 })
 export class MapComponent implements OnInit, AfterViewInit {
 
-  bounds1= L.latLng(38.558, 11.579)
-  bounds2= L.latLng(38.558, 11.579)
+  bounds1= L.latLng(42.100, 11.579)
+  bounds2= L.latLng(42.100, 11.579)
   map: L.Map
   options
 
@@ -34,7 +34,7 @@ export class MapComponent implements OnInit, AfterViewInit {
       minZoom: 6,
       maxZoom: 6,
       zoom: 6,
-      center: L.latLng(38.558, 11.579),
+      center: L.latLng(42.100, 11.579),
       maxBounds: L.latLngBounds(this.bounds1, this.bounds2)
 
     }
@@ -51,11 +51,16 @@ export class MapComponent implements OnInit, AfterViewInit {
       )
       .subscribe((res: GeoJsonObject) => {
         L.geoJSON(res, {
+
+
         style: function (features) {
           {
             return {color: "red"}
           }
         }
+
+
+
         }).addTo(map);
       });
   }
