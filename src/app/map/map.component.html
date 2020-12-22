@@ -1,4 +1,11 @@
-<div id="map" leaflet
-     [leafletOptions]="options"
+<div leaflet id="mapContainer"
+  [leafletOptions]="options"
+  (leafletMapReady)="onMapReady($event)"
 >
+
+  <div id="map"
+
+  >
+
+  </div>
 </div>
