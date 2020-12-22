@@ -21,8 +21,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   options = {
     layers: [
-      L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 10, attribution: '...' })
+      L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 6, minZoom: 6, attribution: '...' })
     ],
+    minZoom: 6,
+    maxZoom: 6,
     zoom: 6,
     center: L.latLng(38.558, 11.579),
     maxBounds: L.latLngBounds(this.bounds1, this.bounds2)
