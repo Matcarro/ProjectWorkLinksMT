@@ -8,8 +8,8 @@ import * as L from 'leaflet';
 })
 export class MapComponent implements OnInit, AfterViewInit {
 
-  bounds1= L.latLng(35, 12)
-  bounds2= L.latLng(35, 12)
+  bounds1= L.latLng(38.558, 11.579)
+  bounds2= L.latLng(38.558, 11.579)
 
   constructor() {}
 
@@ -21,10 +21,10 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   options = {
     layers: [
-      L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
+      L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 10, attribution: '...' })
     ],
-    zoom: 5,
-    center: L.latLng(35, 12),
+    zoom: 6,
+    center: L.latLng(38.558, 11.579),
     maxBounds: L.latLngBounds(this.bounds1, this.bounds2)
   };
 
