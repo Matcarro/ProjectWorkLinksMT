@@ -16,6 +16,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   bounds2= L.latLng(42.100, 11.579)
   map: L.Map
   options
+  risposta
 
   constructor(private http: HttpClient) {
 
@@ -25,7 +26,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-    //this.map=L.map("map")
     this.options = {
       layers: [
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 6, minZoom: 6, attribution: '...' }),
@@ -44,16 +44,24 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   }
 
+  oggetto={
+    ciao: "1",
+    io: "2",
+
+  }
+
   onMapReady(map: L.Map) {
     this.http
       .get(
       'https://raw.githubusercontent.com/openpolis/geojson-italy/master/geojson/limits_IT_regions.geojson'
       )
-      .subscribe((res: GeoJsonObject) => {
-        L.geoJSON(res, {
 
+      .subscribe((res: GeoJsonObject) => { this.risposta=res
 
-        style: function (features) {
+        L.geoJSON(this.risposta, {
+
+        style: function ( features ) {
+          if (features.properties.reg_name=="Puglia")
           {
             return {color: "red"}
           }
@@ -62,6 +70,28 @@ export class MapComponent implements OnInit, AfterViewInit {
 
 
         }).addTo(map);
+
+
+
+
       });
+
+
+
+
+
+
+
+
+
+
   }
+   /////funzioni/////
+
+
+
+
+   /////fine funzioni/////
+
+
 }
