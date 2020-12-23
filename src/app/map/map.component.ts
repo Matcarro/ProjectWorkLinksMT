@@ -11,6 +11,12 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements OnInit {
+
+
+
+
+
+
   map: L.Map;
 
   bounds1 = L.latLng(42, 13);
@@ -23,14 +29,16 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.options = {
-      layers: [
+      /*layers: [
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 5.5,
+          maxZoom: 6,
           minZoom: 5,
           attribution: '...',
         }),
-      ],
-      zoom: 5,
+      ],*/
+      zoom: 6,
+      maxZoom: 6,
+      minZoom: 6,
       center: L.latLng(42, 13),
       maxBounds: L.latLngBounds(this.bounds1, this.bounds2),
     };
@@ -38,6 +46,11 @@ export class MapComponent implements OnInit {
 
 
   onMapReady(map: L.Map) {
+
+
+
+
+
 
     //get dei due database
     let character = this.http.get<GeoJsonObject>('http://localhost:3000/regione');
@@ -64,7 +77,20 @@ export class MapComponent implements OnInit {
 
 
       L.geoJSON(results[1],
-        {style: function(features) {
+        {
+
+          onEachFeature: function(features, layer) {
+            layer.bindTooltip("<span style='font-size:10px'>" + results[0][features.properties.reg_istat_code_num-1].positive + "</span>", {
+              permanent: true,
+              direction: "center",
+              className: "label"
+
+            }).openTooltip();
+          },
+
+          style: function(features) {
+
+
 
           switch ((features.properties.reg_istat_code_num-1) as number) {
 
@@ -88,7 +114,7 @@ export class MapComponent implements OnInit {
             case 17: return controlNumber(results[0][features.properties.reg_istat_code_num-1].positive);
             case 18: return controlNumber(results[0][features.properties.reg_istat_code_num-1].positive);
             case 19: return controlNumber(results[0][features.properties.reg_istat_code_num-1].positive);
-         }
+          }
     //   },
     //   onEachfeatures : function(features,layer) {
     //     onEachfeatures(features, layer, results[0][features.properties.reg_istat_code_num-1].positive)
@@ -96,11 +122,23 @@ export class MapComponent implements OnInit {
     // },
 
         }
-  }).addTo(map);
+        }).addTo(map);
 
 
 
-        });
 
-      }
-    }
+
+    });
+    //fine fork
+
+    /*let myIcon=L.divIcon({className: "myIcon"});
+    L.marker([42, 13], {icon: myIcon}).addTo(map);
+
+    var layer =new L.Polygon([]).bindTooltip('Hi There!').addTo(map);
+    layer.openTooltip();*/
+
+
+
+
+  }
+}
